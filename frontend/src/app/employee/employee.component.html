@@ -1,0 +1,78 @@
+<!-- Button trigger modal -->
+<div class="container">
+    <div class="button-small mt-5">
+        <button (click)="onAddEmployee()" type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Add Employee
+        </button>
+    </div>
+</div>
+<!-- Modal -->
+<div [class.show]="showModal" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">{{editMode?'Update':'Add'}} Employee</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"  (click)="onCloseModel()"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="empForm" >
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Name</label>
+                        <input type="text" name="name" formControlName="name" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Email</label>
+                        <input type="text" name="email" formControlName="email" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Mobile</label>
+                        <input type="number" name="mobile" formControlName="mobile" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Subject</label>
+                        <input type="text" name="subject" formControlName="subject" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Message</label>
+                            <textarea type="text" name="desc" formControlName="desc" class="form-control" id="" cols="30" rows="5"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" (click)="onEmpSubmit()">{{editMode?'Update':'Submit'}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> <br>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body" >
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Subject</th>
+                    <th>Message</th>
+                    <th>Action</th>
+                </tr>
+                <tr *ngFor="let emp of empData">
+                    <td>{{emp._id}}</td>
+                    <td>{{emp.name}}</td>
+                    <td>{{emp.email}}</td>
+                    <td>{{emp.mobile}}</td>
+                    <td>{{emp.subject}}</td>
+                    <td>{{emp.desc}}</td>
+                   <td>
+                    <button class="btn btn-primary"  (click)="onEditEmployee(emp)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Edit</button>&nbsp;
+                    <button class="btn btn-danger" (click)="onDeleteEmployee(emp._id)">Delete</button>
+                   </td>
+                 </tr>
+              </table>
+        </div>
+    </div>
+</div>
